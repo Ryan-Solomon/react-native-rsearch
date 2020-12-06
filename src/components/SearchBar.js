@@ -8,17 +8,26 @@ const SearchBar = () => {
   return (
     <View style={styles.background}>
       <Feather size={30} name='search' />
-      <TextInput />
+      <TextInput
+        style={styles.inputStyle}
+        placeholder='Search'
+        onChangeText={(e) => setInput(e.target.value)}
+      />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   background: {
-    backgroundColor: '#666666',
+    backgroundColor: '#b5b5b5',
     height: 50,
     borderRadius: 5,
     marginHorizontal: 15,
+    flexDirection: 'row',
+  },
+  inputStyle: {
+    borderColor: 'black',
+    borderWidth: 1,
   },
 });
 
