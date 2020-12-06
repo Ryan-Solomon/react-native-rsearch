@@ -7,20 +7,29 @@ const SearchScreen = () => {
   const [term, setTerm] = useState('');
   const [results, setResults] = useState([]);
   const [submitTerm, setSubmitTerm] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   React.useEffect(() => {
     const getResults = async () => {
-      const { data } = await yelp.get('/search', {
-        params: {
-          limit: 50,
-          term,
-          location: 'san jose',
-        },
-      });
-      setResults(data.businesses);
+      try {
+        const { data } = await yelp.get('/search', {
+          params: {
+            limit: 50,
+            term,
+            location: 'san jose',
+          },
+        });
+        setResults(data.businesses);
+      } catch (e) {
+        setErrorMessage(`There was an error: ${e}`);
+      }
     };
     getResults();
   }, [submitTerm]);
+
+  if (errorMessage) {
+    return <Text>There was an error</Text>;
+  }
 
   return (
     <View>
